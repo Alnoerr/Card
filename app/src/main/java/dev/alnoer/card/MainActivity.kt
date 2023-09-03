@@ -9,10 +9,10 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Phone
@@ -26,7 +26,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -45,7 +44,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Card(modifier = Modifier)
+                    CardApp()
                 }
             }
         }
@@ -63,19 +62,17 @@ fun CardName(modifier: Modifier = Modifier) {
         Image(
             painter = image,
             contentDescription = stringResource(R.string.logo_content_description),
-            contentScale = ContentScale.Inside,
-            modifier = modifier
+            modifier = Modifier
                 .background(Color.DarkGray)
-                .height(120.dp)
-                .width(120.dp)
+                .size(height = 120.dp, width = 120.dp)
+                .aspectRatio(1f)
         )
         Text(
             text = stringResource(R.string.name),
             fontSize = 40.sp,
             fontWeight = FontWeight.Light,
             color = Color.Black,
-            modifier = modifier
-                .padding(vertical = 4.dp)
+            modifier = Modifier.padding(vertical = 8.dp)
         )
         Text(
             text = stringResource(R.string.occupation),
@@ -96,7 +93,7 @@ fun Contact(imageVector: ImageVector, contentDescription: String, text: String, 
             imageVector = imageVector,
             contentDescription = contentDescription,
             tint = Color(0xff006c39),
-            modifier = modifier.padding(horizontal = 12.dp)
+            modifier = Modifier.padding(horizontal = 8.dp)
         )
         Text(
             text = text,
@@ -110,34 +107,28 @@ fun CardContacts(modifier: Modifier = Modifier) {
     Column(
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.Center,
-        modifier = modifier
-            .padding(
-                vertical = 32.dp
-            )
+        modifier = modifier.padding(vertical = 32.dp)
     ) {
         Contact(
             imageVector = Icons.Filled.Phone,
             contentDescription = stringResource(R.string.phone_content_description),
-            text = stringResource(R.string.phone_number),
-            modifier = modifier
+            text = stringResource(R.string.phone_number)
         )
         Contact(
             imageVector = Icons.Filled.Share,
             contentDescription = stringResource(R.string.share_content_description),
-            text = stringResource(R.string.contact_me),
-            modifier = modifier
+            text = stringResource(R.string.contact_me)
         )
         Contact(
             imageVector = Icons.Filled.Email,
             contentDescription = stringResource(R.string.email_content_description),
-            text = stringResource(R.string.email),
-            modifier = modifier
+            text = stringResource(R.string.email)
         )
     }
 }
 
 @Composable
-fun Card(modifier: Modifier = Modifier) {
+fun CardApp(modifier: Modifier = Modifier) {
     Column(
         verticalArrangement = Arrangement.Bottom,
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -145,18 +136,18 @@ fun Card(modifier: Modifier = Modifier) {
             .fillMaxSize()
             .background(Color(0xffd2e8d4))
     ) {
-        Spacer(modifier = modifier.weight(2.0f))
-        CardName(modifier = modifier)
-        Spacer(modifier = modifier.weight(1.0f))
-        CardContacts(modifier = modifier)
+        Spacer(modifier = Modifier.weight(2.0f))
+        CardName()
+        Spacer(modifier = Modifier.weight(1.0f))
+        CardContacts()
     }
 }
 
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 fun CardPreview() {
     CardTheme {
-        Card(modifier = Modifier)
+        CardApp()
     }
 }
