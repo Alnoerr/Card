@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Card</string>
+    <string name="phone_content_description">Phone icon</string>
+    <string name="share_content_description">Share icon</string>
+    <string name="email_content_description">Email icon</string>
+    <string name="phone_number">+7 (XXX) XXX-XX-XX</string>
+    <string name="contact_me">\@alnoer</string>
+    <string name="email">alnoer@alnoer.dev</string>
+    <string name="logo_content_description">Android logo</string>
+    <string name="occupation">Android Developer</string>
+    <string name="name">Alnoer</string>
+</resources>
