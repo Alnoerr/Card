@@ -17,6 +17,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material.icons.filled.Share
+import androidx.compose.material3.Card
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -28,10 +29,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import dev.alnoer.card.ui.theme.CardTheme
 
 class MainActivity : ComponentActivity() {
@@ -54,36 +53,33 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun CardName(modifier: Modifier = Modifier) {
-    val image = painterResource(id = R.drawable.android_logo)
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier.padding(vertical = 32.dp)
+        modifier = modifier
     ) {
         Image(
-            painter = image,
-            contentDescription = stringResource(R.string.logo_content_description),
+            painter = painterResource(id = R.drawable.android_logo),
+            contentDescription = null,
             modifier = Modifier
-                .background(Color.DarkGray)
                 .size(height = 120.dp, width = 120.dp)
                 .aspectRatio(1f)
+                .background(Color.DarkGray)
         )
         Text(
             text = stringResource(R.string.name),
-            fontSize = 40.sp,
-            fontWeight = FontWeight.Light,
-            color = Color.Black,
+            style = MaterialTheme.typography.displayMedium,
             modifier = Modifier.padding(vertical = 8.dp)
         )
         Text(
             text = stringResource(R.string.occupation),
-            color = Color(0xff006c39),
-            fontWeight = FontWeight.Bold
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.primary
         )
     }
 }
 
 @Composable
-fun Contact(imageVector: ImageVector, contentDescription: String, text: String, modifier: Modifier = Modifier) {
+fun Contact(imageVector: ImageVector, text: String, modifier: Modifier = Modifier) {
     Row (
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
@@ -91,55 +87,50 @@ fun Contact(imageVector: ImageVector, contentDescription: String, text: String, 
     ) {
         Icon(
             imageVector = imageVector,
-            contentDescription = contentDescription,
-            tint = Color(0xff006c39),
+            contentDescription = null,
+            tint = MaterialTheme.colorScheme.primary,
             modifier = Modifier.padding(horizontal = 8.dp)
         )
-        Text(
-            text = text,
-            color = Color.Black
-        )
+        Text(text = text)
     }
 }
 
 @Composable
-fun CardContacts(modifier: Modifier = Modifier) {
-    Column(
-        horizontalAlignment = Alignment.Start,
-        verticalArrangement = Arrangement.Center,
+fun Contacts(modifier: Modifier = Modifier) {
+    Card(
         modifier = modifier.padding(vertical = 32.dp)
     ) {
-        Contact(
-            imageVector = Icons.Filled.Phone,
-            contentDescription = stringResource(R.string.phone_content_description),
-            text = stringResource(R.string.phone_number)
-        )
-        Contact(
-            imageVector = Icons.Filled.Share,
-            contentDescription = stringResource(R.string.share_content_description),
-            text = stringResource(R.string.contact_me)
-        )
-        Contact(
-            imageVector = Icons.Filled.Email,
-            contentDescription = stringResource(R.string.email_content_description),
-            text = stringResource(R.string.email)
-        )
+        Column(
+            horizontalAlignment = Alignment.Start,
+            verticalArrangement = Arrangement.Center,
+            modifier = Modifier.padding(16.dp)
+        ) {
+            Contact(
+                imageVector = Icons.Filled.Phone,
+                text = stringResource(R.string.phone_number)
+            )
+            Contact(
+                imageVector = Icons.Filled.Share,
+                text = stringResource(R.string.contact_me)
+            )
+            Contact(
+                imageVector = Icons.Filled.Email,
+                text = stringResource(R.string.email)
+            )
+        }
     }
 }
 
 @Composable
 fun CardApp(modifier: Modifier = Modifier) {
     Column(
-        verticalArrangement = Arrangement.Bottom,
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
-            .fillMaxSize()
-            .background(Color(0xffd2e8d4))
     ) {
         Spacer(modifier = Modifier.weight(2.0f))
         CardName()
         Spacer(modifier = Modifier.weight(1.0f))
-        CardContacts()
+        Contacts()
     }
 }
 
@@ -147,7 +138,25 @@ fun CardApp(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 fun CardPreview() {
-    CardTheme {
-        CardApp()
+    CardTheme(darkTheme = false) {
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = MaterialTheme.colorScheme.background
+        ) {
+            CardApp()
+        }
+    }
+}
+
+@Preview
+@Composable
+fun CardDarkThemePreview() {
+    CardTheme(darkTheme = true) {
+        Surface(
+            modifier = Modifier.fillMaxSize(),
+            color = MaterialTheme.colorScheme.background
+        ) {
+            CardApp()
+        }
     }
 }
