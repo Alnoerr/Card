@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Phone
@@ -30,6 +32,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import dev.alnoer.card.ui.theme.CardTheme
 
@@ -70,11 +73,13 @@ fun CardName(modifier: Modifier = Modifier) {
         Text(
             text = stringResource(R.string.name),
             style = MaterialTheme.typography.displayMedium,
+            textAlign = TextAlign.Center,
             modifier = Modifier.padding(vertical = dimensionResource(id = R.dimen.padding_small))
         )
         Text(
             text = stringResource(R.string.occupation),
             style = MaterialTheme.typography.titleMedium,
+            textAlign = TextAlign.Center,
             color = MaterialTheme.colorScheme.primary
         )
     }
@@ -106,7 +111,7 @@ fun Contact(imageVector: ImageVector, text: String, modifier: Modifier = Modifie
 @Composable
 fun Contacts(modifier: Modifier = Modifier) {
     Card(
-        modifier = modifier.padding(vertical = dimensionResource(id = R.dimen.padding_large))
+        modifier = modifier.padding(dimensionResource(id = R.dimen.padding_large))
     ) {
         Column(
             horizontalAlignment = Alignment.Start,
@@ -136,9 +141,13 @@ fun Contacts(modifier: Modifier = Modifier) {
 fun CardApp(modifier: Modifier = Modifier) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
-        modifier = modifier
+        modifier = modifier.verticalScroll(rememberScrollState())
     ) {
         Spacer(modifier = Modifier.weight(2.0f))
+
+        // TODO: Make different layout for album orientation, so this spacer and scroll wont be necessary
+        Spacer(modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_small)))
+
         CardName()
         Spacer(modifier = Modifier.weight(1.0f))
         Contacts()
