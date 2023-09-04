@@ -27,10 +27,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import dev.alnoer.card.ui.theme.CardTheme
 
 class MainActivity : ComponentActivity() {
@@ -50,7 +50,9 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-
+/**
+ * Composable that displays android logo, name and occupation.
+ */
 @Composable
 fun CardName(modifier: Modifier = Modifier) {
     Column(
@@ -61,14 +63,14 @@ fun CardName(modifier: Modifier = Modifier) {
             painter = painterResource(id = R.drawable.android_logo),
             contentDescription = null,
             modifier = Modifier
-                .size(height = 120.dp, width = 120.dp)
+                .size(dimensionResource(id = R.dimen.image_size))
                 .aspectRatio(1f)
                 .background(Color.DarkGray)
         )
         Text(
             text = stringResource(R.string.name),
             style = MaterialTheme.typography.displayMedium,
-            modifier = Modifier.padding(vertical = 8.dp)
+            modifier = Modifier.padding(vertical = dimensionResource(id = R.dimen.padding_small))
         )
         Text(
             text = stringResource(R.string.occupation),
@@ -78,32 +80,38 @@ fun CardName(modifier: Modifier = Modifier) {
     }
 }
 
+/**
+ * Composable that contains single row of icon and text.
+ */
 @Composable
 fun Contact(imageVector: ImageVector, text: String, modifier: Modifier = Modifier) {
     Row (
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center,
-        modifier = modifier.padding(vertical = 8.dp)
+        modifier = modifier.padding(vertical = dimensionResource(id = R.dimen.padding_small))
     ) {
         Icon(
             imageVector = imageVector,
             contentDescription = null,
             tint = MaterialTheme.colorScheme.primary,
-            modifier = Modifier.padding(horizontal = 8.dp)
+            modifier = Modifier.padding(horizontal = dimensionResource(id = R.dimen.padding_small))
         )
         Text(text = text)
     }
 }
 
+/**
+ * Composable that displays list of contacts at the bottom of the app.
+ */
 @Composable
 fun Contacts(modifier: Modifier = Modifier) {
     Card(
-        modifier = modifier.padding(vertical = 32.dp)
+        modifier = modifier.padding(vertical = dimensionResource(id = R.dimen.padding_large))
     ) {
         Column(
             horizontalAlignment = Alignment.Start,
             verticalArrangement = Arrangement.Center,
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_medium))
         ) {
             Contact(
                 imageVector = Icons.Filled.Phone,
@@ -121,6 +129,9 @@ fun Contacts(modifier: Modifier = Modifier) {
     }
 }
 
+/**
+ * Main app composable that holds everything together.
+ */
 @Composable
 fun CardApp(modifier: Modifier = Modifier) {
     Column(
@@ -134,7 +145,9 @@ fun CardApp(modifier: Modifier = Modifier) {
     }
 }
 
-
+/**
+ * Composable that displays what the UI of the app looks like in light theme in the design tab.
+ */
 @Preview
 @Composable
 fun CardPreview() {
@@ -148,6 +161,9 @@ fun CardPreview() {
     }
 }
 
+/**
+ * Composable that displays what the UI of the app looks like in dark theme in the design tab.
+ */
 @Preview
 @Composable
 fun CardDarkThemePreview() {
